@@ -1,0 +1,11 @@
+---
+-
+  hosts: all
+  become: true
+  tasks:
+    - name: Install nvm
+      shell: "curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash"
+    - name: Install node 7
+      shell: "source ~/.nvm/nvm.sh && nvm install 7"
+    - name: Set default node to 7
+      shell: "source ~/.nvm/nvm.sh && nvm alias default 7"

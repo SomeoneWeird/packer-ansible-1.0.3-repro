@@ -1,0 +1,33 @@
+{
+  "variables": {
+    "region": "ap-southeast-1",
+    "vpcid": "",
+    "subnetid": ""
+  },
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "region": "{{user `region`}}",
+      "vpc_id": "{{user `vpcid`}}",
+      "subnet_id": "{{user `subnetid`}}",
+      "source_ami": "ami-2c59e74f",
+      "instance_type": "m4.large",
+      "ssh_username": "ec2-user",
+      "ami_name": "ami2",
+      "ami_description": "ami2",
+      "shutdown_behavior": "terminate",
+      "run_tags": {
+        "Name": "ami builder"
+      }
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "ansible",
+      "playbook_file": "ansible.yml",
+      "host_alias": "server",
+      "sftp_command": "/usr/libexec/openssh/sftp-server -e",
+      "use_sftp": true
+    }
+  ]
+}
